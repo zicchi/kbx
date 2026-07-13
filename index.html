@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<!-- saved from url=(0035)http://localhost/core/index.php/kbx -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style id="__________cytoscape_stylesheet">.__________cytoscape_container { position: relative; }</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta id="core-client-config" data-core="
+      eyJlbnYiOiJtZ20iLCJhcHAiOiJrYngiLCJjb250cm9sbGVyIjoiaG9tZSIsIm1ldGhvZCI6ImluZGV4
+      IiwiYmFzZXVybCI6Imh0dHA6XC9cL2xvY2FsaG9zdFwvY29yZVwvaW5kZXgucGhwXC9rYnhcLyIsImJh
+      c2VmaWxldXJsIjoiaHR0cDpcL1wvbG9jYWxob3N0XC9jb3JlXC9rYnhcLyIsImFzc2V0dXJsIjoiaHR0
+      cDpcL1wvbG9jYWxob3N0XC9jb3JlXC9rYnhcL2Fzc2V0XC8iLCJzZXNzaWQiOiJlMDM1N2IwZjZjOWY2
+      Njk2NTQ0Y2UxYmY0ZWY4ZWNhMCJ9" data-mapid="" data-collabhost="http://localhost" data-collabport="3000" data-collabpath="" data-enablecollab="1">
+    <link rel="stylesheet" href="./assets/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/g.ui.css">
+    <link rel="stylesheet" href="./assets/animate.min.css">
+    <link rel="stylesheet" href="./assets/huebee.min.css">
+    <link rel="stylesheet" href="./assets/kbui.css">
+    <link rel="stylesheet" href="./assets/atom-one-dark.css">
+    <!-- <link rel="stylesheet" href="./assets/pdf_viewer.min.css"> -->
+    <link rel="stylesheet" href="./assets/recompose.css">
+    <link rel="icon" href="http://localhost/core/index.php/favicon.ico">
+    <link href="./assets/css" rel="stylesheet">
+    <title>Home › Index</title>
+  </head>
+  <body>
+<div class="d-flex flex-column vh-100">
+  <div class="app-navbar d-flex align-items-center p-2 pe-2">
+    <div class="position-absolute top-0 end-0 px-2 py-1 me-2 mt-2 d-flex align-items-center bg-secondary-subtle border border-secondary-subtle rounded">
+      <i class="bi bi-clock me-2"></i><span class="timer h5 m-0 text-secondary text-center" style="min-width:4em">00:00:00</span>
+    </div>
+    <!-- <div class="position-absolute top-0 start-0 px-2 py-1 ms-2 mt-2 d-flex align-items-center bg-secondary-subtle border border-secondary-subtle rounded">
+      <i class="bi bi-check2-circle me-2"></i>
+      <span class="p-2 badge rounded-pill bg-success ms-1"> </span>
+      <small class="fb-ma m-0 text-secondary text-center mx-1 fw-bold">-</small>
+      <span class="p-2 badge rounded-pill bg-primary ms-1"> </span>
+      <small class="fb-ex m-0 text-secondary text-center mx-1 fw-bold">-</small>
+      <span class="p-2 badge rounded-pill bg-danger ms-1"> </span>
+      <small class="fb-mi m-0 text-secondary text-center mx-1 fw-bold">-</small>
+      <small class="fb-sc m-0 text-secondary text-center mx-1 fw-bold">0%</small>
+    </div> -->
+    <div class="flex-fill">&nbsp;</div>
+    <button class="bt-open-kit btn btn-sm btn-primary"><i class="bi bi-folder2-open"></i> Open</button>
+    <!-- <div class="btn-group btn-group-sm ms-2" id="recompose-readcontent">
+      <button class="bt-content btn btn-sm btn-secondary" disabled><i class="bi bi-file-text-fill"></i> Contents</button>
+    </div> -->
+    <!-- <div class="btn-group btn-group-sm ms-2" id="recompose-saveload">
+      <button class="bt-save btn btn-secondary"><i class="bi bi-download"></i> Save</button>
+      <button class="bt-export btn btn-outline-secondary"><i class="bi bi-send"></i></button>
+    </div> -->
+    <!-- <div class="dropdown ms-2 dd-saved-maps">
+      <button class="bt-load btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-upload"></i> <span class="px-1">Load</span></button>
+      <ul class="dropdown-menu saved-maps"></ul>
+    </div> -->
+    <!-- <div class="dropdown ms-2 dd-saved-maps">
+      <button class="bt-peer btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-people-fill"></i> <span class="px-1">Peer</span></button>
+      <div class="dropdown-menu">
+        <ul class="list-group peer-maps"></ul>
+        <hr>
+        <div class="p-2 pt-0">
+          <button class="btn btn-sm btn-primary text-nowrap mx-2 bt-load-reciprocal-map">Load Reciprocal Map</button>
+        </div>
+      </div>
+    </div> -->
+    <div class="btn-group btn-group-sm ms-2" id="recompose-reset">
+      <button class="bt-reset btn btn-danger"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+    </div>
+    <!-- <div class="btn-group btn-group-sm ms-2" id="recompose-feedbacklevel">
+      <button class="bt-feedback btn btn-warning"><i class="bi bi-eye-fill"></i> Feedback <span class="count"></span></button>
+      <button class="bt-clear-feedback btn btn-success" disabled><i class="bi bi-play-fill"></i> Resume</button>
+    </div> -->
+    <div class="btn-group btn-group-sm ms-2">
+      <button class="bt-submit btn btn-danger"><i class="bi bi-send"></i> Submit <span class="count"></span></button>
+    </div>
+    <div class="flex-fill">&nbsp;</div>
+    <span></span>
+  </div>
+  <div class="d-flex flex-fill align-items-stretch p-2">
+    <div class="kb-container d-flex flex-fill flex-column border bg-white rounded">
+      <div class="kb-toolbar p-1 d-flex align-items-center justify-content-between bg-light border-bottom">
+        <span class="left-stack"></span>
+        <span class="center-stack"></span>
+        <span class="right-stack"></span>
+      </div>
+      <div id="recompose-canvas" class="kb-cy d-flex flex-fill"></div>
+    </div>
+      </div>
+  <div class="d-flex">
+    <div class="status-panel flex-fill m-2 mt-0 d-flex" style="overflow-x: auto"></div>
+    <div class="status-control text-end m-2 mt-0"><button class="btn btn-primary btn-sm opacity-0">&nbsp;</button></div>
+  </div>
+</div>
+
+
+
+<div id="concept-map-export-dialog" class="card d-none">
+  <h6 class="card-header"><i class="bi bi-send"></i> Export</h6>
+  <div class="card-body">
+    <textarea class="form-control encoded-data" rows="5"></textarea>
+  </div>
+  <div class="card-footer text-end">
+    <button class="btn btn-sm btn-secondary bt-cancel px-3">Cancel</button>
+    <button class="btn btn-sm btn-primary ms-1 bt-clipboard px-3"><i class="bi bi-clipboard"></i> Copy to
+      Clipboard</button>
+    <button class="btn btn-sm btn-success ms-1 bt-download-cmap px-3"><i class="bi bi-download"></i> Download CMAP File</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="pdf-dialog" class="card d-none rounded rounded-3 p-1">
+  <div class="toolbar p-1 d-flex align-items-center justify-content-between bg-light border-bottom">
+    <span class="left-stack"></span>
+    <span class="drag-handle flex-fill">&nbsp;</span>
+    <span class="center-stack">
+      <span id="pdf-dialog-camera">
+        <div class="btn-group ms-2">
+          <button class="btn btn-sm btn-outline-secondary" disabled="">
+            <i class="bi bi-camera-video"></i></button>
+          <button class="bt-zoom-in btn btn-sm btn-outline-primary" data-tippy-content="">
+            <i class="bi bi-zoom-in"></i></button>
+          <button class="bt-zoom-out btn btn-sm btn-outline-primary" data-tippy-content="">
+            <i class="bi bi-zoom-out"></i></button>
+          <button class="bt-page-width btn btn-sm btn-outline-primary" data-tippy-content="">
+            <i class="bi bi-arrows"></i></button>
+          <button class="bt-page-height btn btn-sm btn-outline-primary" data-tippy-content="">
+            <i class="bi bi-arrows-vertical"></i></button>
+          <button class="bt-zoom-auto btn btn-sm btn-outline-primary" data-tippy-content="">
+            <i class="bi bi-arrow-counterclockwise"></i></button>
+        </div>
+      </span><span id="pdf-dialog-utility">
+        <div class="btn-group ms-2">
+          <button class="btn btn-sm btn-outline-secondary" disabled="">
+            <i class="bi bi-tools"></i>
+          </button>
+          <button class="bt-search btn btn-sm btn-outline-primary" data-tippy-content="Search" data-bs-auto-close="outside" data-bs-toggle="dropdown">
+            <i class="bi bi-search"></i>
+          </button>
+          <div class="dropdown-menu kb-search-toolbar p-2" tabindex="-1" role="dialog" aria-hidden="true" style="width: 450px">
+            <div class="input-group input-group-sm d-flex align-items-center">
+              <input type="text" class="form-control form-control-sm input-keyword" value="" placeholder="">
+              <button class="bt-find btn btn-sm btn-primary"><i class="bi bi-search"></i></button>
+              <btn class="search-status btn btn-sm btn-outline-secondary">No results</btn>
+              <button class="bt-next btn btn-sm btn-outline-secondary" disabled=""><i class="bi bi-chevron-down"></i></button>
+              <button class="bt-prev btn btn-sm btn-outline-secondary" disabled=""><i class="bi bi-chevron-up"></i></button>
+              <button class="bt-close-search btn btn-sm btn-outline-danger"><i class="bi bi-x-lg"></i></button>
+            </div>
+          </div>
+          <button class="bt-print btn btn-sm btn-outline-primary" data-tippy-content="">
+            <i class="bi bi-printer"></i></button>
+          <button class="bt-download btn btn-sm btn-outline-primary" data-tippy-content="">
+            <i class="bi bi-download"></i></button>
+        </div>
+      </span>
+    </span>
+    <span class="drag-handle flex-fill">&nbsp;</span>
+    <span class="right-stack">
+      <button class="bt-close btn btn-sm" style="right:0;"><i class="bi bi-x-lg"></i></button>
+    </span>
+  </div>
+  <div class="card-body d-flex align-items-stretch" style="height: 500px;">
+    <div id="viewerContainer" class="overflow-auto position-absolute bg-secondary" style="width: calc(100% - 42px); height: calc(100% - 100px);">
+      <div id="viewer" class="pdfViewer"></div>
+    </div>
+    <span class="pdf-info position-absolute pb-1 text-secondary" style="bottom:0; font-size:0.9rem;"><span class="page-info"></span></span>
+    <button class="bt-resize btn btn-sm position-absolute" style="bottom:0; right:0;"><i class="bi bi-arrows-angle-expand"></i></button>
+  </div>
+</div>
+
+<div id="peer-map-dialog" class="card d-none rounded rounded-3 p-1">
+  <div class="bg-secondary-subtle rounded text-center py-2 px-2 d-flex align-items-center">
+    <span class="peer-name flex-fill drag-handle">No name</span>
+    <a class="bt-close bg-dark-subtle rounded text-secondary cursor-pointer px-2 py-1" role="button"><i class="bi bi-x-lg"></i></a>
+  </div>
+  <div class="card-body position-relative p-0">
+    <div class="overflow-auto position-absolute w-100" style="height:calc(100% - 40px);">
+      <!-- <img class="peer-image" src="./assets/Q.png"> -->
+    </div>
+    <span class="pdf-info position-absolute pb-1 text-secondary" style="bottom:0; font-size:0.9rem;"><span class="page-info"></span></span>
+    <button class="bt-resize btn btn-sm position-absolute" style="bottom:0; right:0;"><i class="bi bi-arrows-angle-expand"></i></button>
+  </div>
+</div>
+<!-- Dialog Modal -->
+<div class="modal" id="modal-dialog" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content shadow">
+      <div class="modal-body">
+        <div class="dialog-head">
+          <div class="dialog-title fw-bold"></div>
+          <hr>
+        </div>
+        <div class="dialog-body d-flex align-items-center">
+          <i class="dialog-icon fs-1 me-3 ms-2"></i>
+          <div class="dialog-content" style="font-size:.9rem"></div>
+        </div>
+        <hr>
+        <div class="dialog-foot">
+          <button type="button" class="btn btn-sm btn-secondary bt-negative px-2 mx-2 mb-2">No</button>
+          <button type="button" class="btn btn-sm btn-primary bt-positive px-2 mb-2">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Dialog Modal -->
+<!-- Loading Modal -->
+<div class="modal" id="modal-loading" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-loading text-center text-primary">
+          <div class="animation"></div>
+          <div class="mt-2"><span class="loading-text text-dark"></span></div>
+        </div>
+        <div id="modal-content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Loading Modal -->
+<!-- SignIn Modal -->
+<div class="card d-none shadow" id="modal-sign-in" tabindex="-1" aria-hidden="true">
+  <div class="card-body mx-3 text-center">
+    <form name="form-sign-in" autocomplete="off">
+      <h1 class="h3 mb-4 mt-4 fw-normal">Sign in</h1>
+      <div class="form-floating">
+        <input type="text" class="form-control rounded-0 rounded-top" id="input-username" placeholder="Username" autocomplete="new-password" style="margin-bottom: -1px;">
+        <label for="input-username">Username</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control rounded-0 rounded-bottom" id="input-password" placeholder="Password" autocomplete="new-password">
+        <label for="input-password">Password</label>
+      </div>
+
+      <div class="checkbox mb-3 mt-2 mx-2">
+        <label> <input type="checkbox" id="input-remember-me" value="remember-me"> Remember me </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary bt-sign-in" type="submit">Sign in</button>
+      <div id="sign-in-filter" class="text-center mt-3"></div>
+      <p class="mt-5 mb-3 text-muted">© 2017–2026</p>
+    </form> 
+  </div>
+</div>
+<!-- /SignIn Modal -->  
+  
+  <!-- <script type="module" src="./assets/pdf.min.mjs"></script>
+  <script type="module" src="./assets/pdf.worker.min.mjs"></script>
+  <script type="module" src="./assets/pdf.sandbox.min.mjs"></script>
+  <script type="module" src="./assets/pdf_viewer.mjs"></script> -->
+  <script type="text/javascript" src="./assets/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="./assets/pako.min.js"></script>
+  <script type="text/javascript" src="./assets/core-clients.js"></script>
+  <script type="text/javascript" src="./assets/core-runtime.js"></script>
+  <script type="text/javascript" src="./assets/jquery-resizable.min.js"></script>
+  <script type="text/javascript" src="./assets/popper.min.js"></script>
+  <script type="text/javascript" src="./assets/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="./assets/interact.min.js"></script>
+  <script type="text/javascript" src="./assets/core.ui.js"></script>
+  <script type="text/javascript" src="./assets/core-language.js"></script>
+  <script type="text/javascript" src="./assets/g.ui.js"></script>
+  <script type="text/javascript" src="./assets/cytoscape.min.js"></script>
+  <script type="text/javascript" src="./assets/layout-base.js"></script>
+  <script type="text/javascript" src="./assets/cose-base.js"></script>
+  <script type="text/javascript" src="./assets/cytoscape-fcose.js"></script>
+  <script type="text/javascript" src="./assets/huebee.pkgd.min.js"></script>
+  <script type="text/javascript" src="./assets/konva.min.js"></script>
+  <script type="text/javascript" src="./assets/kbui.js"></script>
+  <script type="text/javascript" src="./assets/kbui.toolbar.js"></script>
+  <script type="text/javascript" src="./assets/kbui.toolcanvas.js"></script>
+  <script type="text/javascript" src="./assets/kbui.canvas.style.js"></script>
+  <script type="text/javascript" src="./assets/kbui.canvas.konva.js"></script>
+  <script type="text/javascript" src="./assets/kitbuild.js"></script>
+  <script type="text/javascript" src="./assets/analyzer.js"></script>
+  <!-- <script type="text/javascript" src="./assets/socket.io.min.js"></script> -->
+  <!-- <script type="text/javascript" src="./assets/kbui.collab.js"></script> -->
+  <script type="text/javascript" src="./assets/logger.js"></script>
+  <!-- <script type="text/javascript" src="./assets/highlight.min.js"></script> -->
+  <!-- <script type="text/javascript" src="./assets/showdown.min.js"></script> -->
+  <script type="text/javascript" src="./assets/recompose.js"></script>
+  <script type="text/javascript" src="./assets/recompose.timer.js"></script>
+
+<form id="concept-map-open-dialog" class="card d-none shadow">
+  <div class="card-body mb-3">
+
+    <h4 class="mx-3 my-2 d-flex justify-content-between align-items-center">
+      Open Exam
+      <span class="btn btn-lg bt-cancel text-secondary p-0"><i class="bi bi-x-lg"></i></span>
+    </h4>
+
+
+    <div class="input-group p-3">
+      <input type="text" class="form-control" name="userid" value="Test" placeholder="Enter your name or ID">
+      <div class="form-check input-group-text">
+        <input class="me-2" type="checkbox" value="1" id="inputrememberme" checked="">
+        <label class="form-check-label" for="inputrememberme">Remember Me</label>
+      </div>
+    </div>
+
+    <div class="input-group px-3 mb-3">
+      <input type="text" class="form-control" name="mapid" placeholder="Enter exam ID" value="">
+      <button class="btn btn-primary bt-open-id"><i class="bi bi-folder2-open"></i>
+        <span>Load Map ID</span>
+      </button>
+    </div>
+
+    <div class="px-3">
+      <textarea name="cmapdata" id="cmapdata" class="form-control" rows="5">{
+  "kit": {
+    "canvas": {
+      "concepts": [
+        {
+          "cid": "c1",
+          "cmid": null,
+          "label": "Sistem Informasi",
+          "x": 411,
+          "y": 263,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":69,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c10",
+          "cmid": null,
+          "label": "Expert System",
+          "x": 865,
+          "y": 48,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":102,\"height\":22,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c11",
+          "cmid": null,
+          "label": "VR System",
+          "x": 722,
+          "y": -249,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":74,\"height\":22,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c12",
+          "cmid": null,
+          "label": "Decision Support System",
+          "x": -269,
+          "y": 159,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":114,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c13",
+          "cmid": null,
+          "label": "Enterprise Resource Planning",
+          "x": -80,
+          "y": 355,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":74,\"height\":67,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c14",
+          "cmid": null,
+          "label": "Transaction Processing System",
+          "x": -138,
+          "y": -25,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":84,\"height\":67,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c2",
+          "cmid": null,
+          "label": "Bisnis/Organisasi",
+          "x": 133,
+          "y": 504,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":126,\"height\":22,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c3",
+          "cmid": null,
+          "label": "Tujuan Bisnis",
+          "x": 469,
+          "y": 612,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":96,\"height\":22,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c4",
+          "cmid": null,
+          "label": "Data menjadi Informasi",
+          "x": 690,
+          "y": 258,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":96,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c5",
+          "cmid": null,
+          "label": "System Cybernetics",
+          "x": 268,
+          "y": -54,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":83,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c6",
+          "cmid": null,
+          "label": "Feedback dan Control",
+          "x": 247,
+          "y": -405,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":100,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c7",
+          "cmid": null,
+          "label": "Specialized Business Information System",
+          "x": 533,
+          "y": -44,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":86,\"height\":89,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c8",
+          "cmid": null,
+          "label": "Business Information System",
+          "x": 175,
+          "y": 147,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":86,\"height\":67,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c9",
+          "cmid": null,
+          "label": "AI-based Information System",
+          "x": 881,
+          "y": -128,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":86,\"height\":67,\"type\":\"concept\"}"
+        }
+      ],
+      "links": [
+        {
+          "lid": "l1",
+          "cmid": null,
+          "label": "menggunakan",
+          "x": 266,
+          "y": 386,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":101,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c2",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l1\",\"target\":\"c2\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l2",
+          "cmid": null,
+          "label": "mengoptimalkan",
+          "x": 444,
+          "y": 445,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":121,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c1",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l2\",\"target\":\"c1\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l3",
+          "cmid": null,
+          "label": "memiliki",
+          "x": 289,
+          "y": 556,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":62,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c2",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l3\",\"target\":\"c2\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l4",
+          "cmid": null,
+          "label": "berfungsi untuk mengubah",
+          "x": 641,
+          "y": 413,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":114,\"height\":44,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c1",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l4\",\"target\":\"c1\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l5",
+          "cmid": null,
+          "label": "memiliki mekanisme",
+          "x": 260,
+          "y": -221,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":82,\"height\":44,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c5",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l5\",\"target\":\"c5\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l6",
+          "cmid": null,
+          "label": "jenisnya",
+          "x": 382,
+          "y": 113,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":60,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c1",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l6\",\"target\":\"c1\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l7",
+          "cmid": null,
+          "label": "contoh",
+          "x": 700,
+          "y": -90,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":50,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c7",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l7\",\"target\":\"c7\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l8",
+          "cmid": null,
+          "label": "contoh",
+          "x": -27,
+          "y": 162,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":50,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c8",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l8\",\"target\":\"c8\",\"type\":\"left\"}"
+        }
+      ],
+      "linktargets": [],
+      "concepts_ext": [],
+      "links_ext": [],
+      "linktargets_ext": []
+    },
+    "map": {
+      "id": "isinorg",
+      "title": "IS in Organization",
+      "cmid": "CM-IS-IN-ORG",
+      "layout": "preset",
+      "options": {},
+      "enabled": true
+    }
+  },
+  "conceptMap": {
+    "canvas": {
+      "concepts": [
+        {
+          "cid": "c1",
+          "cmid": null,
+          "label": "Sistem Informasi",
+          "x": 411,
+          "y": 263,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":69,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c10",
+          "cmid": null,
+          "label": "Expert System",
+          "x": 865,
+          "y": 48,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":102,\"height\":22,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c11",
+          "cmid": null,
+          "label": "VR System",
+          "x": 722,
+          "y": -249,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":74,\"height\":22,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c12",
+          "cmid": null,
+          "label": "Decision Support System",
+          "x": -269,
+          "y": 159,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":114,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c13",
+          "cmid": null,
+          "label": "Enterprise Resource Planning",
+          "x": -80,
+          "y": 355,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":74,\"height\":67,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c14",
+          "cmid": null,
+          "label": "Transaction Processing System",
+          "x": -138,
+          "y": -25,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":84,\"height\":67,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c2",
+          "cmid": null,
+          "label": "Bisnis/Organisasi",
+          "x": 133,
+          "y": 504,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":126,\"height\":22,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c3",
+          "cmid": null,
+          "label": "Tujuan Bisnis",
+          "x": 469,
+          "y": 612,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":96,\"height\":22,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c4",
+          "cmid": null,
+          "label": "Data menjadi Informasi",
+          "x": 690,
+          "y": 258,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":96,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c5",
+          "cmid": null,
+          "label": "System Cybernetics",
+          "x": 268,
+          "y": -54,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":83,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c6",
+          "cmid": null,
+          "label": "Feedback dan Control",
+          "x": 247,
+          "y": -405,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":100,\"height\":44,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c7",
+          "cmid": null,
+          "label": "Specialized Business Information System",
+          "x": 533,
+          "y": -44,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":86,\"height\":89,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c8",
+          "cmid": null,
+          "label": "Business Information System",
+          "x": 175,
+          "y": 147,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":86,\"height\":67,\"type\":\"concept\"}"
+        },
+        {
+          "cid": "c9",
+          "cmid": null,
+          "label": "AI-based Information System",
+          "x": 881,
+          "y": -128,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#FFBF40\",\"width\":86,\"height\":67,\"type\":\"concept\"}"
+        }
+      ],
+      "links": [
+        {
+          "lid": "l1",
+          "cmid": null,
+          "label": "menggunakan",
+          "x": 266,
+          "y": 386,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":101,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c2",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l1\",\"target\":\"c2\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l2",
+          "cmid": null,
+          "label": "mengoptimalkan",
+          "x": 444,
+          "y": 445,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":121,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c1",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l2\",\"target\":\"c1\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l3",
+          "cmid": null,
+          "label": "memiliki",
+          "x": 289,
+          "y": 556,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":62,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c2",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l3\",\"target\":\"c2\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l4",
+          "cmid": null,
+          "label": "berfungsi untuk mengubah",
+          "x": 641,
+          "y": 413,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":114,\"height\":44,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c1",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l4\",\"target\":\"c1\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l5",
+          "cmid": null,
+          "label": "memiliki mekanisme",
+          "x": 260,
+          "y": -221,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":82,\"height\":44,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c5",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l5\",\"target\":\"c5\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l6",
+          "cmid": null,
+          "label": "jenisnya",
+          "x": 382,
+          "y": 113,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":60,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c1",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l6\",\"target\":\"c1\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l7",
+          "cmid": null,
+          "label": "contoh",
+          "x": 700,
+          "y": -90,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":50,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c7",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l7\",\"target\":\"c7\",\"type\":\"left\"}"
+        },
+        {
+          "lid": "l8",
+          "cmid": null,
+          "label": "contoh",
+          "x": -27,
+          "y": 162,
+          "data": "{\"color\":\"#000000\",\"background-color\":\"#DEDEDE\",\"width\":50,\"height\":22,\"type\":\"link\",\"limit\":9}",
+          "source_cid": "c8",
+          "source_cmid": null,
+          "source_data": "{\"source\":\"l8\",\"target\":\"c8\",\"type\":\"left\"}"
+        }
+      ],
+      "linktargets": [
+        {
+          "lid": "l1",
+          "cmid": null,
+          "target_cid": "c1",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l1\",\"target\":\"c1\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l2",
+          "cmid": null,
+          "target_cid": "c3",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l2\",\"target\":\"c3\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l3",
+          "cmid": null,
+          "target_cid": "c3",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l3\",\"target\":\"c3\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l4",
+          "cmid": null,
+          "target_cid": "c4",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l4\",\"target\":\"c4\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l5",
+          "cmid": null,
+          "target_cid": "c6",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l5\",\"target\":\"c6\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l6",
+          "cmid": null,
+          "target_cid": "c5",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l6\",\"target\":\"c5\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l6",
+          "cmid": null,
+          "target_cid": "c7",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l6\",\"target\":\"c7\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l6",
+          "cmid": null,
+          "target_cid": "c8",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l6\",\"target\":\"c8\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l7",
+          "cmid": null,
+          "target_cid": "c10",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l7\",\"target\":\"c10\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l7",
+          "cmid": null,
+          "target_cid": "c11",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l7\",\"target\":\"c11\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l7",
+          "cmid": null,
+          "target_cid": "c9",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l7\",\"target\":\"c9\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l8",
+          "cmid": null,
+          "target_cid": "c12",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l8\",\"target\":\"c12\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l8",
+          "cmid": null,
+          "target_cid": "c13",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l8\",\"target\":\"c13\",\"type\":\"right\"}"
+        },
+        {
+          "lid": "l8",
+          "cmid": null,
+          "target_cid": "c14",
+          "target_cmid": null,
+          "target_data": "{\"source\":\"l8\",\"target\":\"c14\",\"type\":\"right\"}"
+        }
+      ],
+      "concepts_ext": [],
+      "links_ext": [],
+      "linktargets_ext": []
+    },
+    "map": {
+      "cmid": "CM-IS-IN-ORG",
+      "direction": "multi"
+    }
+  }
+}</textarea>
+      <div class="text-end">
+        <button class="btn btn-primary bt-open-cmap mt-2 text-end"><i class="bi bi-folder2-open"></i>
+          <span>Open Map</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active px-3" id="pills-id" role="tabpanel"
+        aria-labelledby="pills-id-tab">
+        <div class="input-group">
+          <input type="text" class="form-control" name="mapid"
+            placeholder="Enter concept map ID"
+            aria-label="Enter concept map ID"
+            aria-describedby="button-addon2" value="">
+          <a class="btn btn-primary bt-open-id" type="button"><i class="bi bi-folder2-open"></i> <span class="bt-open-id-label">Open Map</span></a>
+        </div>
+      </div>
+      <div class="tab-pane fade px-3" id="pills-url" role="tabpanel"
+        aria-labelledby="pills-url-tab">
+        <div class="input-group">
+          <input type="text" class="form-control" name="mapurl"
+            placeholder="Enter concept map URL"
+            aria-label="Enter concept map URL"
+            aria-describedby="button-addon2" value="">
+          <a class="btn btn-primary bt-open-url" type="button"><i class="bi bi-folder2-open"></i> Open from URL</a>
+        </div>
+      </div>
+      <div class="tab-pane fade px-3 text-end" id="pills-file" role="tabpanel"
+        aria-labelledby="pills-file-tab">
+        <div class="file-drop-area">
+          <span class="fake-btn btn btn-primary me-3">Choose file</span>
+          <span class="file-msg">or drop file here</span>
+          <input class="file-input" type="file" multiple>
+          <div class="item-delete me-4"></div>
+        </div>
+        <a class="bt-open btn btn-primary px-3 mt-3" style="min-width: 8rem;">
+          <i class="bi bi-folder2-open"></i> Open from File</a>
+      </div>
+    </div> -->
+    <!-- <ul class="nav nav-pills px-3 mt-3" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-id-tab"
+          data-bs-toggle="pill" data-bs-target="#pills-id" type="button" role="tab"
+          aria-controls="pills-id" aria-selected="true">Kit-Build ID</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-url-tab" data-bs-toggle="pill"
+          data-bs-target="#pills-url" type="button" role="tab"
+          aria-controls="pills-url" aria-selected="false" disabled="disabled">URL</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-file-tab" data-bs-toggle="pill"
+          data-bs-target="#pills-file" type="button" role="tab"
+          aria-controls="pills-file" aria-selected="false" disabled="disabled">File</button>
+      </li>
+    </ul> -->
+  </div>
+</form><div id="kit-content-dialog" class="card d-none shadow">
+  <h6 class="card-header d-flex">
+    <span class="drag-handle flex-fill"><i class="dialog-icon bi bi-file-text"></i> <span class="dialog-title">Content</span></span>
+    <i class="bi bi-x-lg bt-close bt-x" role="button"></i>
+  </h6>
+  <div class="card-body position-relative overflow-hidden overflow-scroll d-flex flex-fill mb-3">
+    <div class="content text-secondary"></div>
+  </div>
+  <div class="card-footer d-flex justify-content-between align-items-center">
+    <span>
+      <span class="bt-scroll-top btn btn-sm ms-1 btn-primary px-3"><i class="bi bi-chevron-bar-up"></i> Back to Top</span>
+      <span class="bt-scroll-more btn btn-sm ms-1 btn-primary px-3"><i class="bi bi-chevron-down"></i> More</span>
+    </span>
+    <span>
+      <button class="btn btn-sm btn-secondary bt-close px-3">Close</button>
+      <button class="btn btn-sm resize-handle pe-0 ps-3"><i class="bi bi-textarea-resize"></i></button>
+    </span>
+  </div>
+</div><div id="feedback-reason-dialog" class="card d-none shadow">
+  <h6 class="card-header d-flex">
+    <span class="drag-handle flex-fill"><i class="dialog-icon bi bi-file-text"></i> <span class="dialog-title">Feedback</span></span>
+    <i class="bi bi-x-lg bt-close bt-x" role="button"></i>
+  </h6>
+  <div class="card-body position-relative d-flex flex-column flex-fill">
+    <p>Why do you need feedback?</p>
+    <div class="form-check" id="feedback-check">
+      <input class="form-check-input" type="checkbox" value="" id="inputcorrect">
+      <label class="form-check-label" for="inputcorrect">
+        To check whether my work is correct.
+      </label>
+    </div>
+    <!-- <div class="form-check" id="feedback-info">
+      <input class="form-check-input" type="checkbox" value="" id="inputinformation">
+      <label class="form-check-label" for="inputinformation">
+        I need more information regarding my last response
+      </label>
+    </div>
+    <div class="form-check" id="feedback-understand">
+      <input class="form-check-input" type="checkbox" value="" id="inputunderstand">
+      <label class="form-check-label" for="inputunderstand">
+        I don't understand about my last response
+      </label>
+    </div> -->
+    <div class="">
+      <label for="inputotherreason" class="form-label">or</label>
+      <input type="text" class="form-control" id="inputotherreason" placeholder="write other reason...">
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-end align-items-center">
+    <span>
+      <button class="btn btn-sm btn-secondary bt-close px-3">Close</button>
+      <button class="btn btn-sm btn-primary bt-get-feedback"><i class="bi bi-eye-fill"></i> Get Feedback</button>
+    </span>
+  </div>
+</div><div id="feedback-nearby-dialog" class="card d-none shadow">
+  <h6 class="card-header d-flex">
+    <span class="drag-handle flex-fill"><i class="dialog-icon bi bi-file-text"></i>
+      <span class="dialog-title">Contextual Feedback</span></span>
+    <i class="bi bi-x-lg bt-close bt-x" role="button"></i>
+  </h6>
+  <div class="card-body position-relative d-flex flex-column flex-fill">
+    <p>Why do you need feedback for this node?</p>
+    <div class="form-check">
+      <input name="reason" class="form-check-input inputinformation" type="radio" value="" id="inputinformationnearby">
+      <label class="form-check-label" for="inputinformationnearby">
+        I want to know other concepts that related to this concept.
+      </label>
+    </div>
+    <div class="form-check">
+      <input name="reason" class="form-check-input inputunderstand" type="radio" value="" id="inputunderstandnearby">
+      <label class="form-check-label" for="inputunderstandnearby">
+        I don't understand about this node, so I want to get references
+      </label>
+    </div>
+    <div class="">
+      <label for="inputotherreasonnearby" class="form-label">Other</label>
+      <input type="text" class="form-control inputotherreason" id="inputotherreasonnearby" placeholder="write other reason...">
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-end align-items-center">
+    <span>
+      <button class="btn btn-sm btn-secondary bt-close px-3">Close</button>
+      <button class="btn btn-sm btn-primary bt-get-feedback"><i class="bi bi-eye-fill"></i> Get Feedback</button>
+    </span>
+  </div>
+</div><div id="feedback-dialog" class="card d-none shadow">
+  <h6 class="card-header d-flex">
+    <span class="drag-handle flex-fill"><i class="dialog-icon bi bi-eye-fill me-2"></i> <span class="dialog-title">Feedback</span></span>
+    <i class="bi bi-x-lg bt-close bt-x" role="button"></i>
+  </h6>
+  <div class="card-body">
+    <div class="feedback-content"></div>
+  </div>
+  <div class="card-footer text-center">
+    <button class="btn btn-secondary bt-cancel bt-close px-3"><i class="bi bi-question-square-fill me-1"></i> Let me review the feedback on map.</button>
+    <button class="btn btn-success bt-modify px-3 mt-2"><i class="bi bi-play-fill me-1"></i> Resume and continue working.</button>
+  </div>
+</div></body><!-- Scripts placed at the end of the document so the pages load faster --></html>
