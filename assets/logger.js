@@ -5,6 +5,7 @@ class Logger {
   static sessid = null;
   static canvasid = null;
   static seq = 1;
+  static records = []; // in-memory log store, exportable via Export Log
   static shouldSkip(action) {
     switch(action) {
       case 'select-nodes':
@@ -45,6 +46,12 @@ class Logger {
     if (extra instanceof Map) extra.forEach((v, k) => lData.append(k, v))
 
     if (Logger.VERBOSE) console.warn("Log data to send: ", ...lData);
+
+    // keep a copy in memory for Export Log
+    let record = {};
+    for (let [k, v] of lData.entries()) record[k] = v;
+    record.time = new Date(Number(record.tstampc)).toISOString();
+    Logger.records.push(record);
 
     // let url = Core.instance().config('baseurl') + "logApi/log";
     // if (lData.has('data') || lData.has('canvas') || lData.has('compare')) {

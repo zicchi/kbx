@@ -1517,6 +1517,7 @@ class KitBuildToolCanvas {
         konvaCanvasId: `kb-${canvas.canvasId}-canvas-konva`,
         connectorEnabled: true,
         indicatorEnabled: true,
+        linkRemainingEnabled: true,
       },
       options
     );
@@ -1721,9 +1722,10 @@ class KitBuildToolCanvas {
     // console.error("CLEAR INDICATOR");
     this.ictx.clearRect(0, 0, this.dimension.w, this.dimension.h);
     if (!this.settings.indicatorEnabled) return this;
-    this.canvas.cy
-      .nodes('[type="link"]')
-      .forEach((l) => this.drawLinkRemaining(l));
+    if (this.settings.linkRemainingEnabled)
+      this.canvas.cy
+        .nodes('[type="link"]')
+        .forEach((l) => this.drawLinkRemaining(l));
     this.drawEdgeLockIndicators();
     return this;
   }
@@ -2828,6 +2830,12 @@ class KitBuildToolCanvas {
 
   enableIndicator(enable = true) {
     this.settings.indicatorEnabled = enable;
+    return this;
+  }
+
+  enableLinkRemaining(enable = true) {
+    this.settings.linkRemainingEnabled = enable;
+    this.clearIndicatorCanvas();
     return this;
   }
 }

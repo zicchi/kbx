@@ -42,6 +42,7 @@
     </div> -->
     <div class="flex-fill">&nbsp;</div>
     <button class="bt-open-kit btn btn-sm btn-primary"><i class="bi bi-folder2-open"></i> Open</button>
+    <button class="bt-export-log btn btn-sm btn-success ms-2"><i class="bi bi-file-earmark-spreadsheet"></i> Export Log</button>
     <!-- <div class="btn-group btn-group-sm ms-2" id="recompose-readcontent">
       <button class="bt-content btn btn-sm btn-secondary" disabled><i class="bi bi-file-text-fill"></i> Contents</button>
     </div> -->
@@ -73,6 +74,10 @@
     <div class="btn-group btn-group-sm ms-2">
       <button class="bt-submit btn btn-danger"><i class="bi bi-send"></i> Submit <span class="count"></span></button>
     </div>
+    <div class="btn-group btn-group-sm ms-2">
+      <button class="bt-next-level btn btn-warning d-none"><i class="bi bi-arrow-right-circle"></i> Next Level</button>
+    </div>
+    <span class="series-status badge rounded-pill bg-secondary ms-2 d-none"></span>
     <div class="flex-fill">&nbsp;</div>
     <span></span>
   </div>
@@ -273,17 +278,18 @@
   <script type="text/javascript" src="./assets/konva.min.js"></script>
   <script type="text/javascript" src="./assets/kbui.js"></script>
   <script type="text/javascript" src="./assets/kbui.toolbar.js"></script>
-  <script type="text/javascript" src="./assets/kbui.toolcanvas.js"></script>
+  <script type="text/javascript" src="./assets/kbui.toolcanvas.js?v=20260714"></script>
   <script type="text/javascript" src="./assets/kbui.canvas.style.js"></script>
   <script type="text/javascript" src="./assets/kbui.canvas.konva.js"></script>
   <script type="text/javascript" src="./assets/kitbuild.js"></script>
   <script type="text/javascript" src="./assets/analyzer.js"></script>
   <!-- <script type="text/javascript" src="./assets/socket.io.min.js"></script> -->
   <!-- <script type="text/javascript" src="./assets/kbui.collab.js"></script> -->
-  <script type="text/javascript" src="./assets/logger.js"></script>
+  <script type="text/javascript" src="./assets/logger.js?v=20260714"></script>
+  <script type="text/javascript" src="./assets/perf.js?v=20260715a"></script>
   <!-- <script type="text/javascript" src="./assets/highlight.min.js"></script> -->
   <!-- <script type="text/javascript" src="./assets/showdown.min.js"></script> -->
-  <script type="text/javascript" src="./assets/recompose.js"></script>
+  <script type="text/javascript" src="./assets/recompose.js?v=20260715b"></script>
   <script type="text/javascript" src="./assets/recompose.timer.js"></script>
 
 <form id="concept-map-open-dialog" class="card d-none shadow">
@@ -310,8 +316,17 @@
       </button>
     </div>
 
+    <div class="px-3 mb-3">
+      <label class="form-label mb-1 text-secondary"><small>Pilih soal dari folder <code>Soal-Web/</code></small></label>
+      <select name="soal" class="form-select soal-picker">
+        <option value="">— Pilih soal —</option>
+      </select>
+      <label class="form-label mb-1 mt-2 text-secondary"><small>atau upload file JSON soal</small></label>
+      <input type="file" accept=".json,application/json" class="form-control soal-file">
+    </div>
+
     <div class="px-3">
-      <textarea name="cmapdata" id="cmapdata" class="form-control" rows="5">{
+      <textarea name="cmapdata" id="cmapdata" class="form-control d-none" rows="5">{
   "kit": {
     "canvas": {
       "concepts": [

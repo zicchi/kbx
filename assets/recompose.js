@@ -90,6 +90,7 @@ class App {
     // canvas.addCanvasTool(KitBuildCanvasTool.DISTANCECOLOR);
 
     this.canvas = canvas;
+    canvas.toolCanvas.enableLinkRemaining(false); // hide link "remaining" hint badge
     // this.session = Core.instance().session();
     // this.ajax = Core.instance().ajax();
     // this.runtime = Core.instance().runtime();
@@ -573,14 +574,168 @@ class App {
       }, 300);
     });
 
+    // Export recorded logs as a JSON file
+    $(".app-navbar").on("click", ".bt-export-log", () => {
+      if (!Logger.records.length) {
+        UI.warning("No log recorded yet.").show();
+        return;
+      }
+      let userid = Logger.userid ?? CDM.userid ?? 'anon';
+      let stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+      let blob = new Blob([JSON.stringify(Logger.records, null, 2)], {type: 'application/json'});
+      let a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `kbx-log_${userid}_${stamp}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
     $('#concept-map-open-dialog').on('submit', (e) => { // console.error(e);
       e.preventDefault();
       e.stopPropagation();
-      return false; 
+      return false;
+    });
+
+    // Populate soal picker from Soal-Web/manifest.json
+    App.seriesMap = {}; // { KB01: [1,2,3], ... } derived from KB filenames
+    let populateSoalPicker = () => {
+      let select = $('#concept-map-open-dialog select.soal-picker');
+      if (select.find('optgroup').length) return; // already populated
+      fetch('Soal-Web/manifest.json')
+        .then((r) => r.json())
+        .then((manifest) => {
+          // Derive KB series (KB01 -> levels 1,2,3) from filenames
+          for (let f of (manifest.KB || [])) {
+            let m = f.match(/^(KB\d+)_level(\d+)-web\.json$/);
+            if (m) (App.seriesMap[m[1]] ??= []).push(Number(m[2]));
+          }
+          App.manifest = manifest;
+          let seriesIds = Object.keys(App.seriesMap).sort();
+          if (seriesIds.length) {
+            let og = $('<optgroup>').attr('label', 'KB Series (Level 1 → 3)');
+            for (let kb of seriesIds) {
+              let levels = App.seriesMap[kb].sort((a, b) => a - b);
+              og.append($('<option>').val(`series:${kb}`).text(`${kb} (Level ${levels.join(', ')})`));
+            }
+            select.append(og);
+          }
+          // Benchmark as a single nextable series (range comes from the manifest)
+          if ((manifest.Benchmark || []).length) {
+            let n = manifest.Benchmark.length;
+            let og = $('<optgroup>').attr('label', 'Benchmark Series');
+            og.append($('<option>').val('series:BENCHMARK')
+              .text(`Benchmark — perf 01–${String(n).padStart(2, '0')} (Next)`));
+            select.append(og);
+          }
+          // Individual Benchmark soal files (single perf)
+          if ((manifest.Benchmark || []).length) {
+            let og = $('<optgroup>').attr('label', 'Benchmark (single soal)');
+            for (let f of manifest.Benchmark)
+              og.append($('<option>').val(`Soal-Web/Benchmark/${f}`).text(f.replace(/-web\.json$/, '')));
+            select.append(og);
+          }
+          // Individual KB soal files (single level)
+          if ((manifest.KB || []).length) {
+            let og = $('<optgroup>').attr('label', 'KB (single level)');
+            for (let f of manifest.KB)
+              og.append($('<option>').val(`Soal-Web/KB/${f}`).text(f.replace(/-web\.json$/, '')));
+            select.append(og);
+          }
+        })
+        .catch((err) => console.warn('Soal manifest not available:', err));
+    };
+    populateSoalPicker();
+
+    // Picking a single soal fetches its JSON into #cmapdata.
+    // Series entries (value "series:KBxx") are handled on Open Map instead.
+    $('#concept-map-open-dialog').on('change', 'select.soal-picker', (e) => {
+      let url = $(e.currentTarget).val();
+      if (!url || url.startsWith('series:')) return;
+      fetch(url)
+        .then((r) => r.text())
+        .then((text) => {
+          JSON.parse(text); // validate
+          $('#cmapdata').val(text);
+        })
+        .catch((error) => UI.error(`Unable to load soal: ${error}`).show());
+    });
+
+    // Uploading a JSON file reads it into #cmapdata
+    $('#concept-map-open-dialog').on('change', 'input.soal-file', (e) => {
+      let file = e.currentTarget.files[0];
+      if (!file) return;
+      file.text().then((text) => {
+        JSON.parse(text); // validate
+        $('#cmapdata').val(text);
+        $('#concept-map-open-dialog select.soal-picker').val('');
+      }).catch((error) => UI.error(`Invalid soal file: ${error}`).show());
+    });
+
+    // --- KB series (multi-level) support ---
+    App.series = null; // { kb: 'KB01', levels: [1,2,3], index: 0 }
+
+    let loadSoalUrl = (url) => fetch(url)
+      .then((r) => r.text())
+      .then((text) => {
+        let { conceptMap, kit } = JSON.parse(text);
+        this.setKitCDM(kit, conceptMap);
+        return App.openKit(kit, conceptMap);
+      });
+
+    let updateSeriesUI = () => {
+      let s = App.series;
+      let btn = $('.app-navbar .bt-next-level');
+      let status = $('.app-navbar .series-status');
+      if (!s) {
+        btn.addClass('d-none');
+        status.addClass('d-none').empty();
+        return;
+      }
+      status.removeClass('d-none')
+        .text(`${s.name} — ${s.items[s.index].label} (${s.index + 1}/${s.items.length})`);
+      btn.removeClass('d-none');
+      btn.html(s.index >= s.items.length - 1
+        ? '<i class="bi bi-check2-circle"></i> Finish'
+        : '<i class="bi bi-arrow-right-circle"></i> Next');
+    };
+    App.updateSeriesUI = updateSeriesUI;
+
+    let loadSeriesLevel = () => {
+      let s = App.series;
+      return loadSoalUrl(s.items[s.index].url).then(() => updateSeriesUI());
+    };
+    App.loadSeriesLevel = loadSeriesLevel;
+
+    // Advance to next level (or finish) — logs the current level's result first
+    $(".app-navbar").on("click", ".bt-next-level", () => {
+      let s = App.series;
+      if (!s) return;
+      let isLast = s.index >= s.items.length - 1;
+      let label = s.items[s.index].label;
+      let confirm = UI.confirm(isLast
+        ? `Finish <b>${s.name}</b>? Your map for ${label} will be recorded.`
+        : `Move on to the next item? Your map for ${label} will be recorded.`
+      ).positive(() => {
+        confirm.hide();
+        let perf = (typeof Perf != "undefined") ? Perf.finish() : null;
+        let dataMap = L.dataMap(CDM.kitId, CDM.conceptMapId, CDM.room);
+        L.canvas(dataMap, App.inst.canvas);
+        L.compare(dataMap, App.inst.canvas, CDM.conceptMap.canvas);
+        L.log('submit-level', { series: s.name, step: s.index + 1, label: label, perf: perf }, dataMap);
+        if (isLast) {
+          let name = s.name;
+          App.series = null;
+          updateSeriesUI();
+          UI.dialog(`All items for <b>${name}</b> completed. Well done!`).show();
+          return;
+        }
+        s.index++;
+        loadSeriesLevel().then(() => {}, (error) => UI.error(error).show());
+      }).show();
     });
 
     $('#concept-map-open-dialog').on('click', '.bt-open-cmap', (e) => { //console.warn(e);
-      
+
       let remember = $('#concept-map-open-dialog input#inputrememberme:checked').val();
       let userid = $('#concept-map-open-dialog input[name="userid"]').val().trim();
       // let mapid = $('#concept-map-open-dialog input[name="mapid"]').val().trim();
@@ -606,9 +761,38 @@ class App {
       //   let cmapData = { conceptMap: conceptMap, kit: kit};
       //   console.log(JSON.stringify(cmapData));
       //   $('#cmapdata').val(JSON.stringify(cmapData));
-        let {conceptMap, kit} = JSON.parse($('#cmapdata').val()); 
-        this.setKitCDM(kit, conceptMap);
         CDM.userid = userid;
+
+        // Series mode: "series:KBxx" (levels 1..3) or "series:BENCHMARK" (all perf files)
+        let selected = $('#concept-map-open-dialog select.soal-picker').val();
+        if (selected && selected.startsWith('series:')) {
+          let key = selected.slice('series:'.length);
+          let name = key, items = [];
+          if (key === 'BENCHMARK') {
+            name = 'Benchmark';
+            for (let f of (App.manifest?.Benchmark || []))
+              items.push({ label: f.replace(/-web\.json$/, ''), url: `Soal-Web/Benchmark/${f}` });
+          } else {
+            let levels = (App.seriesMap[key] || [1, 2, 3]).slice().sort((a, b) => a - b);
+            items = levels.map((n) => ({ label: `Level ${n}`, url: `Soal-Web/KB/${key}_level${n}-web.json` }));
+          }
+          if (!items.length) { UI.error('No items found for this series.').show(); return; }
+          App.series = { name: name, items: items, index: 0 };
+          App.loadSeriesLevel().then(
+            () => {
+              openDialog.hide();
+              App.postOpenKit(userid, remember);
+            },
+            (error) => UI.error(error).show()
+          );
+          return;
+        }
+
+        // Single soal mode
+        App.series = null;
+        App.updateSeriesUI();
+        let {conceptMap, kit} = JSON.parse($('#cmapdata').val());
+        this.setKitCDM(kit, conceptMap);
         console.log(conceptMap, kit);
         App.openKit(kit, conceptMap).then(
           (result) => { // console.log(result);
@@ -1418,14 +1602,15 @@ class App {
         "Do you want to submit your concept map?<br/>This will be marked as the end your concept map session."
       ).positive(() => {
         confirm.hide();
-        this.saveConceptMap({type: 'final'})
-          .then((result) => {
-            UI.dialog("Concept map has been submitted.").show();
-            let dataMap = L.dataMap(CDM.kitId, CDM.conceptMapId, CDM.room);
-            L.canvas(dataMap, App.inst.canvas);
-            L.compare(dataMap, App.inst.canvas, CDM.conceptMap.canvas);
-            L.log('submit', null, dataMap);            
-          });
+        // Capture performance for this level first (independent of backend save)
+        let perf = (typeof Perf != "undefined") ? Perf.finish() : null;
+        let dataMap = L.dataMap(CDM.kitId, CDM.conceptMapId, CDM.room);
+        L.canvas(dataMap, App.inst.canvas);
+        L.compare(dataMap, App.inst.canvas, CDM.conceptMap.canvas);
+        L.log('submit', { perf: perf }, dataMap);
+        UI.dialog("Concept map has been submitted.").show();
+        // Best-effort persistence (no-op if backend is unavailable)
+        this.saveConceptMap({type: 'final'}).catch(() => {});
         }).show();
     });
 
@@ -2084,6 +2269,10 @@ App.openKit = (kit, conceptMap) => {
       L.compare(dataMap, App.inst.canvas, CDM.conceptMap.canvas);
       L.log("open-kit", CDM.kitId, dataMap);
     // });
+
+    // Start performance measurement for this level
+    if (typeof Perf != "undefined")
+      Perf.start({ kid: CDM.kitId, cmid: CDM.conceptMapId });
 
     resolve();
   });
